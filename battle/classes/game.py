@@ -1,4 +1,6 @@
-class bcolor:
+import random
+
+class bcolors:
     HEADER = '\033[95n'
     OKBLUE = '\033[94n'
     OKGREEN = '\033[92n'
@@ -7,3 +9,20 @@ class bcolor:
     ENDC = '\033[0n'
     BOLD = '\033[1n'
     UNDERLINE = '\033[4n'
+
+class Person:
+    def __init__(self, hp, mp, atk, df, magic):
+        self.maxhp = hp
+        self.hp = hp
+        self.maxmp = mp
+        self.mp = mp
+        self.atkl = atk - 10
+        self.atkh = atk + 10
+        self.df = df
+        self.magic = magic
+        self.actions = ["Attack", "Magic"]
+
+    def generate_damage(self):
+        return random.randint(self.atkl, self.atkh) 
+
+       
