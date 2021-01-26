@@ -1,8 +1,8 @@
 from classes.game import Person, bcolors
 
-magic = [{"name": "Fire", "cost": 10, "dmg": 60},
-        {"name": "Thunder", "cost": 10, "dmg": 80},
-        {"name": "Blizzard", "cost": 10, "dmg": 60}]
+magic = [{"name": "Fire", "cost": 10, "dmg": 100},
+        {"name": "Thunder", "cost": 10, "dmg": 124},
+        {"name": "Blizzard", "cost": 10, "dmg": 100}]
 
 player = Person(460, 65, 60, 34, magic)
 enemy = Person(1200, 65, 45, 25, magic)
@@ -21,12 +21,51 @@ while running:
     if index == 0:
         dmg = player.generate_damage()
         enemy.take_damage(dmg)
-        print("You attacked for", dmg, "points of damage. Enemy HP:", enemy.get_hp())
+        print("You attacked for", dmg, "points of damage.")
+    
+    elif index == 1:
+        player.choose_magic()
+        magic_choice = int(input("Choose magic: ")) - 1
+        dmg = player.generate_spell_damage(magic_choice)
+        spell = player.get_spell_name(magic_choice)
+        cost =player.get_spell_mp_cost(magic_choice)
+
+        current_mp = player.get_mp()
+
+        '''
+        Generate cost spell damage
+        '''
+        if(cost > current_mp):
+            print(bcolors.FAIL + "Not enough MP" + bcolors.ENDC)
+            continue
+
+        player.reduce_mp(cost)
+        
+        '''
+        Generate spell damage
+        '''
+        enemy.take_damage(dmg)
+        print(bcolors.OKBLUE + 
+        "You choice magic spell ", magic_choice, " for", dmg, "points of damage."
+        + bcolors.ENDC)
 
     enemy_choice = 1
 
     enemy_dmg = enemy.generate_damage()
     player.take_damage(enemy_dmg)
 
-    print("Enemy attacks for ", enemy_dmg, "Player HP", player.get_hp())
-    running = False
+    print("Enemy attacks for", enemy_dmg)
+
+    print('==============================')
+    print("Enemy HP: " + str(enemy.get_hp()) + + "/" + str(enemy.get_max_hp()))
+    print("Your HP:" + bcolors.OKGREEN + "/" + str(player.get_max_hp()) + bcolors.ENDC)
+    print("Your MP:" + bcolors.OKBLUE + "/" + str(player.get_max_mp() + bcolors.ENDC))
+
+    if enemy.get_hp() == 0:
+        print(bcolors.OKGREEN + "You win" + bcolors.ENDC)
+
+        running = False
+    elif player.get_hp() == 0:
+        print(bcolors.FAIL + "Your enemy has defeated you!" + bcolors.ENDC)
+        
+        running = False
