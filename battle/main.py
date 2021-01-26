@@ -38,7 +38,7 @@ while running:
         Generate cost of spell damage
         '''
         if(cost > current_mp):
-            print(bcolors.FAIL + "Not enough MP" + bcolors.ENDC)
+            print(bcolors.FAIL + "Not enough MP" + bcolors.ENDC + "\n")
             continue
 
         player.reduce_mp(cost)
@@ -47,9 +47,7 @@ while running:
         Generate spell damage
         '''
         enemy.take_damage(dmg)
-        print(bcolors.OKBLUE + 
-        "You choice magic spell", magic_choice, "for", dmg, "points of damage.\n"
-        + bcolors.ENDC)
+        print(bcolors.OKBLUE + spell, "deals", str(dmg) + " points of damage" + bcolors.ENDC + "\n")
 
     enemy_choice = 1
 
@@ -62,7 +60,7 @@ while running:
     print("Enemy HP: " + bcolors.FAIL + str(enemy.get_hp()) + " / " + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
 
     print("Your HP: " + bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC)
-    print("Your MP: " + bcolors.OKBLUE + str (player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC)
+    print("Your MP: " + bcolors.OKBLUE + str (player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You win" + bcolors.ENDC)
