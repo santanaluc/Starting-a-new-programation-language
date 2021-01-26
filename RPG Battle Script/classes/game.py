@@ -63,5 +63,5 @@ class Person:
         i = 1
         print("Magic")
         for spell in self.magic:
-            print(str(i) + ":", Spell.name, "(cost: " + str(Spell.cost) + ")")
+            print(str(i) + ":", spell.name, "(cost: " + str(spell.cost) + ")")
             i+=1 

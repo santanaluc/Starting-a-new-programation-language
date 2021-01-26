@@ -1,5 +1,5 @@
 from classes.game import Person, bcolors
-from classes.game import Spell
+from classes.magic import Spell
 
 # Create black magic
 fire = Spell("Fire", 10, 100, "black")
@@ -38,7 +38,7 @@ while running:
         magic_choice = int(input("\nChoose magic: ")) - 1
 
         spell = player.magic[magic_choice]
-        magic_dmg = spell.generate_damage()
+        magic_dmg = spell.generate_dmg()
         
         current_mp = player.get_mp()
 
@@ -48,14 +48,19 @@ while running:
         if(spell.cost > current_mp):
             print(bcolors.FAIL + "Not enough MP" + bcolors.ENDC + "\n")
             continue
-
+            
         player.reduce_mp(spell.cost)
-        
-        '''
-        Generate spell damage
-        '''
-        enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + spell.name, "deals", str(magic_dmg) + " points of damage" + bcolors.ENDC + "\n")
+
+        #Healing the player
+        if spell.type == "white":
+            player.heal(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name, "heals for", str(magic_dmg), "HP" + bcolors.ENDC)
+        elif spell.type == "black":
+            '''
+            Generate spell damage
+            '''
+            enemy.take_damage(magic_dmg)
+            print(bcolors.OKBLUE + spell.name, "deals", str(magic_dmg) + " points of damage" + bcolors.ENDC + "\n")
 
     enemy_choice = 1
 
