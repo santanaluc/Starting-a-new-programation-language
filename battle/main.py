@@ -16,6 +16,7 @@ while running:
     print("====================================")
     player.choose_action()
     choice = input("Choose action: ")
+    print()
     index = int(choice) - 1
 
     if index == 0:
@@ -25,7 +26,8 @@ while running:
     
     elif index == 1:
         player.choose_magic()
-        magic_choice = int(input("Choose magic: ")) - 1
+        magic_choice = int(input("\nChoose magic: ")) - 1
+
         dmg = player.generate_spell_damage(magic_choice)
         spell = player.get_spell_name(magic_choice)
         cost =player.get_spell_mp_cost(magic_choice)
@@ -33,7 +35,7 @@ while running:
         current_mp = player.get_mp()
 
         '''
-        Generate cost spell damage
+        Generate cost of spell damage
         '''
         if(cost > current_mp):
             print(bcolors.FAIL + "Not enough MP" + bcolors.ENDC)
@@ -46,7 +48,7 @@ while running:
         '''
         enemy.take_damage(dmg)
         print(bcolors.OKBLUE + 
-        "You choice magic spell ", magic_choice, " for", dmg, "points of damage."
+        "You choice magic spell", magic_choice, "for", dmg, "points of damage.\n"
         + bcolors.ENDC)
 
     enemy_choice = 1
@@ -56,10 +58,11 @@ while running:
 
     print("Enemy attacks for", enemy_dmg)
 
-    print('==============================')
-    print("Enemy HP: " + str(enemy.get_hp()) + + "/" + str(enemy.get_max_hp()))
-    print("Your HP:" + bcolors.OKGREEN + "/" + str(player.get_max_hp()) + bcolors.ENDC)
-    print("Your MP:" + bcolors.OKBLUE + "/" + str(player.get_max_mp() + bcolors.ENDC))
+    print("====================================")
+    print("Enemy HP: " + bcolors.FAIL + str(enemy.get_hp()) + " / " + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
+
+    print("Your HP: " + bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC)
+    print("Your MP: " + bcolors.OKBLUE + str (player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC)
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You win" + bcolors.ENDC)
