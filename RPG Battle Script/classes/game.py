@@ -12,7 +12,7 @@ class bcolors:
     UNDERLINE = '\033[4n'
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic):
+    def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -21,7 +21,8 @@ class Person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = ["Attack", "Magic"]
+        self.items = items
+        self.actions = ["Attack", "Magic", "Items"]
 
     def generate_damage(self):
         return random.randint(self.atkl, self.atkh) 
@@ -54,14 +55,21 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print("Actions")
+        print("ACTIONS:")
         for item in self.actions:
-            print(str(i) + ":", item)
+            print("    " + str(i) + ".", item)
             i += 1
     
     def choose_magic(self):
         i = 1
-        print("Magic")
+        print("MAGIC:")
         for spell in self.magic:
-            print(str(i) + ":", spell.name, "(cost: " + str(spell.cost) + ")")
+            print("    " + str(i) + ".", spell.name, "(cost: " + str(spell.cost) + ")")
             i+=1 
+    
+    def choose_items(self):
+        i = 1
+        print("ITEMS:")
+        for item in self.items:
+            print("    " + str(i) + ".", item.name, "-", item.description, "(5x)")
+            i += 1
